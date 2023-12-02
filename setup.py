@@ -1,12 +1,12 @@
 from setuptools import setup
 
-package_name = 'dummy_total_publisher'
+package_name: str = 'dummy_total_publisher'
 node_package_name: str = package_name + '.node'
 
 setup(
     name=package_name,
     version='0.0.0',
-    packages=[package_name],
+    packages=[package_name, node_package_name],
     data_files=[
         ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
