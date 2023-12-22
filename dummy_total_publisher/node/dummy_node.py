@@ -1,5 +1,7 @@
 import numpy
 
+from datetime import datetime
+
 from rclpy.node import Node
 from rclpy.timer import Timer
 from rclpy.publisher import Publisher
@@ -90,7 +92,12 @@ class DummyTotalPublisher(Node):
             qos_profile = qos_profile_system_default,
             callback_group = self.__rtt_odom_publisher_cb_group
         )
-        
+    
+    def __get_current_datetime(self) -> str:
+        __current_datetime: datetime = datetime.now()
+        __formatted_datetime: str = __current_datetime.strftime("%Y%m%d%H%M%S")
+
+        return __formatted_datetime
         
     def __main_timer_cb(self) -> None:
         self.__publish_battery_state()
@@ -136,7 +143,7 @@ class DummyTotalPublisher(Node):
     def __publish_velocity_state(self) -> None:
         velocity_status: VelocityStatus = VelocityStatus()
         velocity_status.current_velocity = 5.9
-        velocity_status.distance = 3.4
+        velocity_status.distance = float(self.__get_current_datetime())
 
         self.__velocity_state_publisher.publish(velocity_status)
     
